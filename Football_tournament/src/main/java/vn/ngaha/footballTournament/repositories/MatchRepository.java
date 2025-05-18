@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import vn.ngaha.footballTournament.models.Match;
-import vn.ngaha.footballTournament.models.Tournament;
+import vn.ngaha.footballTournament.models.Matchs;
+import vn.ngaha.footballTournament.models.Tournaments;
 
 @Repository
-public interface MatchRepository extends JpaRepository<Match, Long>{
-	List<Match> findByTournament(Tournament tournament);
+public interface MatchRepository extends JpaRepository<Matchs, Long>{
+	List<Matchs> findByTournament(Tournaments tournament);
 
 }

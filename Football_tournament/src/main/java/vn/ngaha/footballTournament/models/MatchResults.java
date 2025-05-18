@@ -3,7 +3,7 @@ package vn.ngaha.footballTournament.models;
 import jakarta.persistence.*;
 
 @Entity
-public class MatchResult {
+public class MatchResults {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +11,7 @@ public class MatchResult {
 
     @OneToOne
     @JoinColumn(name = "match_id")
-    private Match match;
+    private Matchs match;
 
     private int team1Score;
     private int team2Score;
@@ -27,11 +27,11 @@ public class MatchResult {
 		this.id = id;
 	}
 
-	public Match getMatch() {
+	public Matchs getMatch() {
 		return match;
 	}
 
-	public void setMatch(Match match) {
+	public void setMatch(Matchs match) {
 		this.match = match;
 	}
 

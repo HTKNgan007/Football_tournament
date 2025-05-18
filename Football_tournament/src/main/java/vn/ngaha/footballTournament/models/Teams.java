@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Team {
+public class Teams {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +15,16 @@ public class Team {
 
     @ManyToOne
     @JoinColumn(name = "tournament_id")
-    private Tournament tournament;
+    private Tournaments tournament;
 
     @OneToMany(mappedBy = "team1", cascade = CascadeType.ALL)
-    private List<Match> matchesAsTeam1;
+    private List<Matchs> matchesAsTeam1;
 
     @OneToMany(mappedBy = "team2", cascade = CascadeType.ALL)
-    private List<Match> matchesAsTeam2;
+    private List<Matchs> matchesAsTeam2;
 
     @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
-    private Standing standing;
+    private Standings standing;
 
 	
     public Long getId() {
@@ -43,35 +43,35 @@ public class Team {
 		this.name = name;
 	}
 
-	public Tournament getTournament() {
+	public Tournaments getTournament() {
 		return tournament;
 	}
 
-	public void setTournament(Tournament tournament) {
+	public void setTournament(Tournaments tournament) {
 		this.tournament = tournament;
 	}
 
-	public List<Match> getMatchesAsTeam1() {
+	public List<Matchs> getMatchesAsTeam1() {
 		return matchesAsTeam1;
 	}
 
-	public void setMatchesAsTeam1(List<Match> matchesAsTeam1) {
+	public void setMatchesAsTeam1(List<Matchs> matchesAsTeam1) {
 		this.matchesAsTeam1 = matchesAsTeam1;
 	}
 
-	public List<Match> getMatchesAsTeam2() {
+	public List<Matchs> getMatchesAsTeam2() {
 		return matchesAsTeam2;
 	}
 
-	public void setMatchesAsTeam2(List<Match> matchesAsTeam2) {
+	public void setMatchesAsTeam2(List<Matchs> matchesAsTeam2) {
 		this.matchesAsTeam2 = matchesAsTeam2;
 	}
 
-	public Standing getStanding() {
+	public Standings getStanding() {
 		return standing;
 	}
 
-	public void setStanding(Standing standing) {
+	public void setStanding(Standings standing) {
 		this.standing = standing;
 	}
 

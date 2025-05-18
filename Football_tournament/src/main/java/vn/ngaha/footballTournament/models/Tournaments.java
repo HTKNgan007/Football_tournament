@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Tournament {
+public class Tournaments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -17,10 +17,10 @@ public class Tournament {
     private String location;
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
-    private List<Team> teams;
+    private List<Teams> teams;
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
-    private List<Match> matches;
+    private List<Matchs> matches;
 
     
 	public Long getId() {
@@ -63,19 +63,19 @@ public class Tournament {
 		this.location = location;
 	}
 
-	public List<Team> getTeams() {
+	public List<Teams> getTeams() {
 		return teams;
 	}
 
-	public void setTeams(List<Team> teams) {
+	public void setTeams(List<Teams> teams) {
 		this.teams = teams;
 	}
 
-	public List<Match> getMatches() {
+	public List<Matchs> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<Match> matches) {
+	public void setMatches(List<Matchs> matches) {
 		this.matches = matches;
 	}
     

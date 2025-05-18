@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
-public class Match {
+public class Matchs {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,21 +13,21 @@ public class Match {
 
     @ManyToOne
     @JoinColumn(name = "tournament_id")
-    private Tournament tournament;
+    private Tournaments tournament;
 
     @ManyToOne
     @JoinColumn(name = "team1_id")
-    private Team team1;
+    private Teams team1;
 
     @ManyToOne
     @JoinColumn(name = "team2_id")
-    private Team team2;
+    private Teams team2;
 
     private LocalDate matchDate;
     private String location;
 
     @OneToOne(mappedBy = "match", cascade = CascadeType.ALL)
-    private MatchResult result;
+    private MatchResults result;
 
     
 	public Long getId() {
@@ -38,27 +38,27 @@ public class Match {
 		this.id = id;
 	}
 
-	public Tournament getTournament() {
+	public Tournaments getTournament() {
 		return tournament;
 	}
 
-	public void setTournament(Tournament tournament) {
+	public void setTournament(Tournaments tournament) {
 		this.tournament = tournament;
 	}
 
-	public Team getTeam1() {
+	public Teams getTeam1() {
 		return team1;
 	}
 
-	public void setTeam1(Team team1) {
+	public void setTeam1(Teams team1) {
 		this.team1 = team1;
 	}
 
-	public Team getTeam2() {
+	public Teams getTeam2() {
 		return team2;
 	}
 
-	public void setTeam2(Team team2) {
+	public void setTeam2(Teams team2) {
 		this.team2 = team2;
 	}
 
@@ -78,11 +78,11 @@ public class Match {
 		this.location = location;
 	}
 
-	public MatchResult getResult() {
+	public MatchResults getResult() {
 		return result;
 	}
 
-	public void setResult(MatchResult result) {
+	public void setResult(MatchResults result) {
 		this.result = result;
 	}
 }
