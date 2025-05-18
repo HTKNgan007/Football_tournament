@@ -9,12 +9,12 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Danh sách các giải đấu</h2>
 
-    <a href="#" class="btn btn-primary mb-3">+ Thêm giải đấu</a>
+    <a th:href="@{/tournaments/add}" class="btn btn-primary mb-3">+ Thêm giải đấu</a>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
-            <th>#</th>
+            <th>STT</th>
             <th>Tên giải</th>
             <th>Thời gian</th>
             <th>Địa điểm</th>
@@ -26,6 +26,9 @@
             <td th:text="${t.name}"></td>
             <td th:text="${t.startDate} + ' - ' + ${t.endDate}"></td>
             <td th:text="${t.location}"></td>
+            <td>
+                <a th:href="@{'/tournaments/' + ${t.id}}" class="btn btn-info btn-sm">Chi tiết</a>
+            </td>
         </tr>
         </tbody>
     </table>

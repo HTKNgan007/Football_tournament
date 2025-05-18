@@ -11,9 +11,11 @@ public class MatchResults {
 
     @OneToOne
     @JoinColumn(name = "match_id")
-    private Matchs match;
+    private Matches match;
 
+    @Column(name = "team1_score")
     private int team1Score;
+    @Column(name = "team2_score")
     private int team2Score;
 
     private String note;
@@ -27,11 +29,11 @@ public class MatchResults {
 		this.id = id;
 	}
 
-	public Matchs getMatch() {
+	public Matches getMatch() {
 		return match;
 	}
 
-	public void setMatch(Matchs match) {
+	public void setMatch(Matches match) {
 		this.match = match;
 	}
 

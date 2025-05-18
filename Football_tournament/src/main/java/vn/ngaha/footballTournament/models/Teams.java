@@ -18,10 +18,10 @@ public class Teams {
     private Tournaments tournament;
 
     @OneToMany(mappedBy = "team1", cascade = CascadeType.ALL)
-    private List<Matchs> matchesAsTeam1;
+    private List<Matches> matchesAsTeam1;
 
     @OneToMany(mappedBy = "team2", cascade = CascadeType.ALL)
-    private List<Matchs> matchesAsTeam2;
+    private List<Matches> matchesAsTeam2;
 
     @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
     private Standings standing;
@@ -51,19 +51,19 @@ public class Teams {
 		this.tournament = tournament;
 	}
 
-	public List<Matchs> getMatchesAsTeam1() {
+	public List<Matches> getMatchesAsTeam1() {
 		return matchesAsTeam1;
 	}
 
-	public void setMatchesAsTeam1(List<Matchs> matchesAsTeam1) {
+	public void setMatchesAsTeam1(List<Matches> matchesAsTeam1) {
 		this.matchesAsTeam1 = matchesAsTeam1;
 	}
 
-	public List<Matchs> getMatchesAsTeam2() {
+	public List<Matches> getMatchesAsTeam2() {
 		return matchesAsTeam2;
 	}
 
-	public void setMatchesAsTeam2(List<Matchs> matchesAsTeam2) {
+	public void setMatchesAsTeam2(List<Matches> matchesAsTeam2) {
 		this.matchesAsTeam2 = matchesAsTeam2;
 	}
 

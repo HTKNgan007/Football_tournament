@@ -20,7 +20,7 @@ public class Tournaments {
     private List<Teams> teams;
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL)
-    private List<Matchs> matches;
+    private List<Matches> matches;
 
     
 	public Long getId() {
@@ -71,11 +71,11 @@ public class Tournaments {
 		this.teams = teams;
 	}
 
-	public List<Matchs> getMatches() {
+	public List<Matches> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<Matchs> matches) {
+	public void setMatches(List<Matches> matches) {
 		this.matches = matches;
 	}
     
