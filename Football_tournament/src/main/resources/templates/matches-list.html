@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <h2 th:text="'Lịch thi đấu giải: ' + ${tournament.name}"></h2>
     <p><strong>Thời gian:</strong> <span th:text="${tournament.startDate} + ' - ' + ${tournament.endDate}"></span></p>
     <p><strong>Địa điểm:</strong> <span th:text="${tournament.location}"></span></p>
@@ -34,7 +34,25 @@
         </tbody>
     </table>
     
-    <a th:href="@{/tournaments/{id}(id=${tournament.id})}" class="btn btn-secondary mt-3">Quay lại chi tiết giải</a>
+    <a th:href="@{/tournaments/{id}(id=${tournament.id})}" class="btn btn-secondary mt-3">Quay lại chi tiết giải</a> -->
+    <div class="container mt-4">
+    <h3 th:text="'Lịch thi đấu - ' + ${tournament.name}"></h3>
+    <table class="table">
+        <thead><tr><th>Ngày</th><th>Đội 1</th><th>Đội 2</th><th>Địa điểm</th><th>Thao tác</th></tr></thead>
+        <tbody>
+            <tr th:each="match : ${matches}">
+                <td th:text="${match.matchDate}"></td>
+                <td th:text="${match.team1.name}"></td>
+                <td th:text="${match.team2.name}"></td>
+                <td th:text="${match.location}"></td>
+                <td>
+                    <a th:href="@{'/matches/' + ${match.id} + '/result'}" class="btn btn-sm btn-primary">Nhập kết quả</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{'/tournaments/' + ${tournament.id}}" class="btn btn-secondary">Quay lại</a>
+</div>
 </div>
 </body>
 </html>
