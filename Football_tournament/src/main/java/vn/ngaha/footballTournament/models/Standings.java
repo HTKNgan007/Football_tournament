@@ -82,17 +82,20 @@ public class Standings {
 		this.goalsAgainst = goalsAgainst;
 	}
 	public int getGoalDifference() {
-		return goalDifference;
-	}
+        return goalsFor - goalsAgainst;
+    }
 	public void setGoalDifference(int goalDifference) {
 		this.goalDifference = goalDifference;
 	}
 	public int getPoints() {
-		return points;
-	}
+        return won * 3 + drawn;
+    }
 	public void setPoints(int points) {
 		this.points = points;
 	}
+    
+
+
     
     
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhập kết quả</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h3 th:text="'Nhập kết quả trận: ' + ${match.team1.name} + ' vs ' + ${match.team2.name}"></h3>
+
+    <form th:action="@{'/matches/' + ${match.id} + '/result'}" method="post" th:object="${result}">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{match.id}" />
+
+        <label th:text="${match.team1.name} + ' ghi bàn: '"></label>
+        <input type="number" min="0" th:field="*{team1Score}" class="form-control" required/>
+
+        <label th:text="${match.team2.name} + ' ghi bàn: '"></label>
+        <input type="number" min="0" th:field="*{team2Score}" class="form-control" required/>
+
+        <label>Ghi chú (nếu có):</label>
+        <textarea th:field="*{note}" class="form-control"></textarea>
+
+        <br>
+        <button type="submit" class="btn btn-success">Lưu kết quả</button>
+        <a th:href="@{'/tournaments/' + ${match.tournament.id} + '/matches'}" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+</body>
+</html>

@@ -32,9 +32,9 @@
             <tr th:each="s : ${standings}">
                 <td th:text="${s.team.name}"></td>
                 <td th:text="${s.played}"></td>
-                <td th:text="${s.wins}"></td>
-                <td th:text="${s.draws}"></td>
-                <td th:text="${s.losses}"></td>
+                <td th:text="${s.won}"></td>
+                <td th:text="${s.drawn}"></td>
+                <td th:text="${s.lost}"></td>
                 <td th:text="${s.goalDifference}"></td>
                 <td th:text="${s.points}"></td>
             </tr>
