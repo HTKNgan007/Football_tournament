@@ -22,7 +22,7 @@ public class StandingController {
     @Autowired
     private TournamentRepository tournamentRepository;
 
-    @GetMapping("/tournaments/{id}/results")
+    @GetMapping("/tournaments/{id}/standings")
     public String showStandings(@PathVariable Long id, Model model) {
         Tournaments tournament = tournamentRepository.findById(id).orElseThrow();
         List<Matches> matches = standingService.getMatchesByTournament(tournament);
