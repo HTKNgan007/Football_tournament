@@ -94,8 +94,4 @@ public class Standings {
 		this.points = points;
 	}
     
-
-
-    
-    
 }
