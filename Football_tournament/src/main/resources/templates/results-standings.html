@@ -7,6 +7,8 @@
 </head>
 <body>
 <div class="container mt-4">
+	<!-- Fragment header -->
+	<div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
     <h3 th:text="'Kết quả & Bảng xếp hạng - ' + ${tournament.name}"></h3>
 
     <h4>Kết quả trận đấu</h4>
@@ -40,9 +42,6 @@
             </tr>
         </tbody>
     </table>
-
-    <a th:href="@{'/tournaments/' + ${tournament.id} + '/matches'}" class="btn btn-warning">Xem Lịch Thi Đấu</a>
-    <a th:href="@{'/tournaments/' + ${tournament.id}}" class="btn btn-secondary">Quay lại</a>
 </div>
 
 </body>

@@ -6,47 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- 
-<div class="container mt-5">
-    <h2 th:text="'Giải: ' + ${tournament.name}"></h2>
-    <p><strong>Thời gian:</strong> <span th:text="${tournament.startDate} + ' - ' + ${tournament.endDate}"></span></p>
-    <p><strong>Địa điểm:</strong> <span th:text="${tournament.location}"></span></p>
-
-    <hr>
-    <h4>Danh sách đội tham gia</h4>
-    <table class="table table-bordered">
-        <thead>
-        <tr><th>#</th><th>Tên đội</th></tr>
-        </thead>
-        <tbody>
-        <tr th:each="team, stat : ${teams}">
-            <td th:text="${stat.index + 1}"></td>
-            <td th:text="${team.name}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h5>Thêm đội bóng</h5>
-    <form th:action="@{/tournaments/{id}/add-team(id=${tournament.id})}" method="post" th:object="${newTeam}">
-        <div class="mb-3">
-            <input type="text" class="form-control" th:field="*{name}" placeholder="Tên đội" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Thêm</button>
-    </form>
-    
-    <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post">
-    <button class="btn btn-warning mb-3" type="submit">⚽ Tạo lịch thi đấu</button>
-	</form>
-	<a th:href="@{/tournaments/{id}/matches(id=${tournament.id})}" class="btn btn-info mb-3">Xem lịch thi đấu</a>
-	
-    
-
-    <a href="/" class="btn btn-secondary mt-3">Quay về trang chủ</a> -->
     <div class="container mt-4">
-    <h2 th:text="'Giải: ' + ${tournament.name}"></h2>
-    <a th:href="@{'/tournaments/' + ${tournament.id} + '/matches'}" class="btn btn-warning">Xem Lịch Thi Đấu</a>
-    <a th:href="@{'/tournaments/' + ${tournament.id} + '/standings'}" class="btn btn-success">Xem Kết Quả & BXH</a>
-    <a href="/" class="btn btn-secondary">Quay lại</a>
+    <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
 
     <h4 class="mt-4">Đội tham gia</h4>
     <table class="table">
@@ -65,9 +26,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Thêm</button>
     </form>
-     <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post">
-	    <button class="btn btn-warning mb-3" type="submit">⚽ Tạo lịch thi đấu</button>
-	</form>
 </div>
 </div>
 </body>
