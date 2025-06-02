@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.ngaha.footballTournament.models.Teams;
 import vn.ngaha.footballTournament.models.Tournaments;
+import vn.ngaha.footballTournament.repositories.TournamentRepository;
 import vn.ngaha.footballTournament.services.TeamService;
 import vn.ngaha.footballTournament.services.TournamentService;
 
@@ -21,13 +24,26 @@ public class HomeController {
 	@Autowired
     private TournamentService tournamentService;
 	@Autowired
+	private TournamentRepository tournamentRepository;
+	@Autowired
 	private TeamService teamService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("tournaments", tournamentService.getAllTournaments());
-        return "home";
-    }
+	@GetMapping("/")
+	public String home(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+	    List<Tournaments> tournaments;
+
+	    if (keyword != null && !keyword.isEmpty()) {
+	        tournaments = tournamentRepository.findByNameContainingIgnoreCase(keyword);
+	    } else {
+	        tournaments = tournamentService.getAllTournaments();
+	    }
+
+	    model.addAttribute("tournaments", tournaments);
+	    model.addAttribute("keyword", keyword); // để giữ lại giá trị trong ô input
+
+	    return "home";
+	}
+
     
     @GetMapping("/tournaments/add")
     public String showAddTournamentForm(Model model) {
@@ -61,6 +77,4 @@ public class HomeController {
         teamService.saveTeam(team);
         return "redirect:/tournaments/" + id;
     }
-
-
 }
