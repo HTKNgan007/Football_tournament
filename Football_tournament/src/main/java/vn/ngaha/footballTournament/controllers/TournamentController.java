@@ -61,11 +61,10 @@ public class TournamentController {
 //        tournamentRepository.deleteById(id);
 //        return "redirect:/";
 //    }
-@PostMapping("/tournaments/{id}/delete")
-public String deleteTournament(@PathVariable Long id) {
-    Tournaments tournament = tournamentRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy giải đấu"));
-
+	@PostMapping("/tournaments/{id}/delete")
+	public String deleteTournament(@PathVariable Long id) {
+	    Tournaments tournament = tournamentRepository.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy giải đấu"));
     // 1. Xoá MatchResults
     List<Matches> matches = matchesRepository.findByTournament(tournament);
     for (Matches match : matches) {
@@ -73,17 +72,13 @@ public String deleteTournament(@PathVariable Long id) {
             matchResultRepository.delete(match.getResult());
         }
     }
-
     // 2. Xoá Matches
     matchesRepository.deleteAll(matches);
-
     // 3. Xoá Standings (nếu có)
     standingRepository.deleteByTournament(tournament);
-
     // 4. Xoá Teams
     List<Teams> teams = teamRepository.findByTournament(tournament);
     teamRepository.deleteAll(teams);
-
     // 5. Cuối cùng xoá Tournament
     tournamentRepository.delete(tournament);
 

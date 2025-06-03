@@ -35,6 +35,7 @@
             <td th:text="${t.startDate} + ' - ' + ${t.endDate}"></td>
             <td th:text="${t.location}"></td>
             <td>
+            	<a th:href="@{'/tournaments/edit/' + ${t.id}}" class="btn btn-warning btn-sm">Sửa</a>
                 <a th:href="@{'/tournaments/' + ${t.id}}" class="btn btn-info btn-sm">Chi tiết</a>
                 <form th:action="@{'/tournaments/' + ${t.id} + '/delete'}" method="post" th:onsubmit="return confirm('Bạn có chắc muốn xoá giải này không?');" style="display:inline;">
 			        <button type="submit" class="btn btn-danger btn-sm">Xoá</button>

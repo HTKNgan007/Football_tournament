@@ -39,7 +39,7 @@ public class HomeController {
 	    }
 
 	    model.addAttribute("tournaments", tournaments);
-	    model.addAttribute("keyword", keyword); // để giữ lại giá trị trong ô input
+	    model.addAttribute("keyword", keyword);
 
 	    return "home";
 	}
@@ -51,6 +51,19 @@ public class HomeController {
         return "add-tournament";
     }
 
+    @GetMapping("/tournaments/edit/{id}")
+    public String showEditTournamentForm(@PathVariable Long id, Model model) {
+        Tournaments tournament = tournamentService.getTournamentById(id);
+        model.addAttribute("tournament", tournament);
+        return "edit-tournament";
+    }
+
+    @PostMapping("/tournaments/update")
+    public String updateTournament(@ModelAttribute Tournaments tournament) {
+        tournamentService.saveTournament(tournament); // vì save() sẽ update nếu có ID
+        return "redirect:/";
+    }
+    
     @PostMapping("/tournaments/save")
     public String saveTournament(@ModelAttribute Tournaments tournament) {
         tournamentService.saveTournament(tournament);
@@ -64,7 +77,7 @@ public class HomeController {
 
         model.addAttribute("tournament", tournament);
         model.addAttribute("teams", teams);
-        model.addAttribute("newTeam", new Teams()); // để thêm đội
+        model.addAttribute("newTeam", new Teams());
 
         return "tournament-detail";
     }
