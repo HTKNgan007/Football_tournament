@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import vn.ngaha.footballTournament.models.Matches;
+import vn.ngaha.footballTournament.models.Standings;
 import vn.ngaha.footballTournament.models.Teams;
 import vn.ngaha.footballTournament.models.Tournaments;
 import vn.ngaha.footballTournament.repositories.MatchRepository;
@@ -18,6 +19,7 @@ import vn.ngaha.footballTournament.repositories.StandingRepository;
 import vn.ngaha.footballTournament.repositories.TeamRepository;
 import vn.ngaha.footballTournament.repositories.TournamentRepository;
 import vn.ngaha.footballTournament.services.MatchService;
+import vn.ngaha.footballTournament.services.impl.StandingService;
 
 @Controller
 public class TournamentController {
@@ -38,6 +40,8 @@ public class TournamentController {
 
     @Autowired
     private StandingRepository standingRepository;
+    @Autowired
+    private StandingService standingService;
 
     @PostMapping("/tournaments/{id}/generate-schedule")
     public String generateSchedule(@PathVariable Long id) {
@@ -84,6 +88,30 @@ public class TournamentController {
 
     return "redirect:/";
 }
+	
+	@GetMapping("/tournaments/{id}/results")
+	public String showResults(@PathVariable Long id, Model model) {
+	    Tournaments tournament = tournamentRepository.findById(id).orElseThrow();
+	    List<Matches> matches = standingService.getMatchesByTournament(tournament);
+
+	    model.addAttribute("tournament", tournament);
+	    model.addAttribute("matches", matches);
+
+	    return "tournament-results";
+	}
+
+	@GetMapping("/tournaments/{id}/standings")
+	public String showStandings(@PathVariable Long id, Model model) {
+	    Tournaments tournament = tournamentRepository.findById(id).orElseThrow();
+	    List<Matches> matches = standingService.getMatchesByTournament(tournament);
+	    List<Standings> standings = standingService.calculateStandings(matches);
+
+	    model.addAttribute("tournament", tournament);
+	    model.addAttribute("standings", standings);
+
+	    return "tournament-standing";
+	}
+
 
 
 

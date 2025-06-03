@@ -6,7 +6,9 @@
             <h2 th:text="'Giải: ' + ${tournament.name}"></h2>
             <div>
                 <a th:href="@{'/tournaments/' + ${tournament.id} + '/matches'}" class="btn btn-warning me-2">Xem Lịch Thi Đấu</a>
-                <a th:href="@{'/tournaments/' + ${tournament.id} + '/standings'}" class="btn btn-success me-2">Xem Kết Quả & BXH</a>
+                <a th:href="@{'/tournaments/' + ${tournament.id} + '/results'}" class="btn btn-outline-info me-2">Xem Kết Quả</a>
+				<a th:href="@{'/tournaments/' + ${tournament.id} + '/standings'}" class="btn btn-outline-success me-2">Xem Bảng Xếp Hạng</a>
+
                 <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post" class="d-inline">
                     <button class="btn btn-primary" type="submit">⚽ Tạo Lịch Thi Đấu</button>
                 </form>
