@@ -19,7 +19,7 @@ import vn.ngaha.footballTournament.repositories.StandingRepository;
 import vn.ngaha.footballTournament.repositories.TeamRepository;
 import vn.ngaha.footballTournament.repositories.TournamentRepository;
 import vn.ngaha.footballTournament.services.MatchService;
-import vn.ngaha.footballTournament.services.impl.StandingService;
+import vn.ngaha.footballTournament.services.impl.StandingServiceImpl;
 
 @Controller
 public class TournamentController {
@@ -41,7 +41,7 @@ public class TournamentController {
     @Autowired
     private StandingRepository standingRepository;
     @Autowired
-    private StandingService standingService;
+    private StandingServiceImpl standingService;
 
     @PostMapping("/tournaments/{id}/generate-schedule")
     public String generateSchedule(@PathVariable Long id) {
@@ -104,15 +104,13 @@ public class TournamentController {
 	public String showStandings(@PathVariable Long id, Model model) {
 	    Tournaments tournament = tournamentRepository.findById(id).orElseThrow();
 	    List<Matches> matches = standingService.getMatchesByTournament(tournament);
-	    List<Standings> standings = standingService.calculateStandings(matches);
+	    List<Standings> standings = standingService.calculateStandings(tournament, matches);
 
 	    model.addAttribute("tournament", tournament);
 	    model.addAttribute("standings", standings);
 
 	    return "tournament-standing";
 	}
-
-
 
 
 }
