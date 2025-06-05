@@ -1,5 +1,6 @@
 package vn.ngaha.footballTournament.controllers;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class TournamentController {
         Tournaments tournament = tournamentRepository.findById(id).orElseThrow();
         List<Matches> matches = matchesRepository.findByTournament(tournament);
 
+        matches.sort(Comparator.comparing(Matches::getMatchDate));
         model.addAttribute("tournament", tournament);
         model.addAttribute("matches", matches);
 

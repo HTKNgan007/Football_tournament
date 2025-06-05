@@ -41,19 +41,8 @@ public class MatchServiceImpl implements MatchService{
         if (!existingMatches.isEmpty()) return;
 
         List<Teams> teams = teamsRepository.findByTournament(tournament);
-        List<Matches> matches = new ArrayList<>();
+        if (teams.size() < 2) return;
 
-        if (teams.size() < 2) return; // Không đủ đội
-
-        Collections.shuffle(teams); // Ngẫu nhiên danh sách đội
-
-        LocalDate startDate = tournament.getStartDate();
-        LocalDate endDate = tournament.getEndDate();
-        if (startDate == null || endDate == null || endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("Ngày bắt đầu hoặc kết thúc không hợp lệ");
-        }
-
-        // Tạo danh sách tất cả các cặp trận đấu
         List<MatchPair> matchPairs = new ArrayList<>();
         for (int i = 0; i < teams.size(); i++) {
             for (int j = i + 1; j < teams.size(); j++) {
@@ -61,22 +50,37 @@ public class MatchServiceImpl implements MatchService{
             }
         }
 
-        Collections.shuffle(matchPairs); // Ngẫu nhiên cặp đấu
+        // Trộn cặp để lịch đa dạng hơn
+        Collections.shuffle(matchPairs);
 
-        // Tạo lịch cho từng ngày từ start đến end
-        long totalDays = startDate.datesUntil(endDate.plusDays(1)).count();
+        LocalDate startDate = tournament.getStartDate();
+        LocalDate endDate = tournament.getEndDate();
+        if (startDate == null || endDate == null || endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Ngày bắt đầu hoặc kết thúc không hợp lệ");
+        }
+
         List<LocalDate> possibleDates = new ArrayList<>();
         startDate.datesUntil(endDate.plusDays(1)).forEach(possibleDates::add);
 
-        // Map lưu lại danh sách các đội đã thi đấu trong từng ngày
-        Map<LocalDate, Set<Long>> scheduleMap = new HashMap<>();
+        Map<Long, List<LocalDate>> matchDatesPerTeam = new HashMap<>();
+        List<Matches> matches = new ArrayList<>();
 
         for (MatchPair pair : matchPairs) {
             boolean scheduled = false;
-            Collections.shuffle(possibleDates); // Ngẫu nhiên chọn ngày
+
             for (LocalDate date : possibleDates) {
-                Set<Long> teamsPlayed = scheduleMap.getOrDefault(date, new HashSet<>());
-                if (!teamsPlayed.contains(pair.team1.getId()) && !teamsPlayed.contains(pair.team2.getId())) {
+                // Kiểm tra đội đã đá hôm đó chưa
+                boolean team1Free = isTeamFree(pair.team1.getId(), date, matchDatesPerTeam);
+                boolean team2Free = isTeamFree(pair.team2.getId(), date, matchDatesPerTeam);
+
+                if (!team1Free || !team2Free) continue;
+
+                // Kiểm tra nghỉ ít nhất 1 ngày
+                boolean team1Rested = isRested(pair.team1.getId(), date, matchDatesPerTeam);
+                boolean team2Rested = isRested(pair.team2.getId(), date, matchDatesPerTeam);
+
+                // Nếu có nghỉ đủ hoặc không còn lựa chọn khác thì chấp nhận
+                if ((team1Rested && team2Rested) || isLastOption(possibleDates, date)) {
                     Matches match = new Matches();
                     match.setTournament(tournament);
                     match.setTeam1(pair.team1);
@@ -86,20 +90,56 @@ public class MatchServiceImpl implements MatchService{
 
                     matches.add(match);
 
-                    teamsPlayed.add(pair.team1.getId());
-                    teamsPlayed.add(pair.team2.getId());
-                    scheduleMap.put(date, teamsPlayed);
+                    matchDatesPerTeam.computeIfAbsent(pair.team1.getId(), k -> new ArrayList<>()).add(date);
+                    matchDatesPerTeam.computeIfAbsent(pair.team2.getId(), k -> new ArrayList<>()).add(date);
+
                     scheduled = true;
                     break;
                 }
             }
+
             if (!scheduled) {
-                throw new IllegalStateException("Không thể xếp lịch cho tất cả các trận trong khoảng thời gian đã cho.");
+                // Nếu vẫn không xếp được, cho phép vi phạm nghỉ (trận cuối)
+                for (LocalDate date : possibleDates) {
+                    boolean team1Free = isTeamFree(pair.team1.getId(), date, matchDatesPerTeam);
+                    boolean team2Free = isTeamFree(pair.team2.getId(), date, matchDatesPerTeam);
+                    if (!team1Free || !team2Free) continue;
+
+                    Matches match = new Matches();
+                    match.setTournament(tournament);
+                    match.setTeam1(pair.team1);
+                    match.setTeam2(pair.team2);
+                    match.setMatchDate(date);
+                    match.setLocation("Sân vận động ABC");
+
+                    matches.add(match);
+
+                    matchDatesPerTeam.computeIfAbsent(pair.team1.getId(), k -> new ArrayList<>()).add(date);
+                    matchDatesPerTeam.computeIfAbsent(pair.team2.getId(), k -> new ArrayList<>()).add(date);
+                    break;
+                }
             }
         }
 
         matchesRepository.saveAll(matches);
     }
+
+    private boolean isTeamFree(Long teamId, LocalDate date, Map<Long, List<LocalDate>> map) {
+        List<LocalDate> dates = map.get(teamId);
+        if (dates == null) return true;
+        return dates.stream().noneMatch(d -> d.equals(date));
+    }
+
+    private boolean isRested(Long teamId, LocalDate date, Map<Long, List<LocalDate>> map) {
+        List<LocalDate> dates = map.get(teamId);
+        if (dates == null) return true;
+        return dates.stream().noneMatch(d -> Math.abs(d.toEpochDay() - date.toEpochDay()) < 2);
+    }
+
+    private boolean isLastOption(List<LocalDate> dates, LocalDate current) {
+        return current.equals(dates.get(dates.size() - 1));
+    }
+
 
     // Lớp phụ trợ dùng trong hàm
     private static class MatchPair {
