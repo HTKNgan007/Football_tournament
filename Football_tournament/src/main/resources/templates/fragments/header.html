@@ -1,20 +1,21 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div th:fragment="tournamentHeader(tournament)">
         <div class="d-flex align-items-center justify-content-between mt-4 mb-3">
-            <h2 th:text="'Giải: ' + ${tournament.name}"></h2>
-            <div>
-                <a th:href="@{'/tournaments/' + ${tournament.id} + '/matches'}" class="btn btn-warning me-2">Xem Lịch Thi Đấu</a>
-                <a th:href="@{'/tournaments/' + ${tournament.id} + '/results'}" class="btn btn-outline-info me-2">Xem Kết Quả</a>
-				<a th:href="@{'/tournaments/' + ${tournament.id} + '/standings'}" class="btn btn-outline-success me-2">Xem Bảng Xếp Hạng</a>
+            <!-- Tiêu đề -->
+            <h2 th:text="'Giải: ' + ${tournament.name}" class="mb-0"></h2>
 
-                <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post" class="d-inline">
-                    <button class="btn btn-primary" type="submit">⚽ Tạo Lịch Thi Đấu</button>
-                </form>
-                 <a href="/" class="btn btn-arrow-right-square-fill">⬅️</a>
+            <!-- Các nút -->
+            <div class="d-flex flex-wrap gap-2">
+                <a th:href="@{'/tournaments/' + ${tournament.id}}" class="btn btn-outline-secondary">Trang Chủ</a>
+                <a th:href="@{'/tournaments/' + ${tournament.id} + '/matches'}" class="btn btn-warning">Lịch Thi Đấu</a>
+                <a th:href="@{'/tournaments/' + ${tournament.id} + '/results'}" class="btn btn-outline-info">Kết Quả</a>
+                <a th:href="@{'/tournaments/' + ${tournament.id} + '/standings'}" class="btn btn-outline-success">Bảng Xếp Hạng</a>
+                <a href="/" class="btn btn-secondary">⬅ Trang Chính</a>
             </div>
         </div>
     </div>
 </body>
 </html>
+ 
