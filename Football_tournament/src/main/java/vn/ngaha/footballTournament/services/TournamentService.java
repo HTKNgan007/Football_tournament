@@ -9,5 +9,6 @@ public interface TournamentService {
 	List<Tournaments> getAllTournaments();
 	void saveTournament(Tournaments tournament);
 	Tournaments getTournamentById(Long id);
+	void removeTeam(Long tournamentId, Long teamId);
 
 }

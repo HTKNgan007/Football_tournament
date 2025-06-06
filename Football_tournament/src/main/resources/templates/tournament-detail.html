@@ -1,36 +1,117 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết giải đấu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style_fragment.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_tournament_detail.css}" />
 </head>
 <body>
-    <div class="container mt-4">
+<div class="container mt-4">
     <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
 
-    <h4 class="mt-4">Đội tham gia</h4>
-    <table class="table">
-        <thead><tr><th>STT</th><th>Tên đội</th></tr></thead>
-        <tbody>
-            <tr th:each="team, stat : ${teams}">
-                <td th:text="${stat.index + 1}"></td>
-                <td th:text="${team.name}"></td>
-            </tr>
-        </tbody>
-    </table>
-    <h5>Thêm đội bóng</h5>
-    <form th:action="@{/tournaments/{id}/add-team(id=${tournament.id})}" method="post" th:object="${newTeam}">
-        <div class="mb-3">
-            <input type="text" class="form-control" th:field="*{name}" placeholder="Tên đội" required>
+    <div class="detail-wrapper mt-4">
+        <div class="section">
+            <h2 class="section-title">Danh sách đội tham gia</h2>
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 60px;">STT </th>
+                        <th>Tên đội</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="team, stat : ${teams}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td th:text="${team.name}" class="team-name-cell"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <button type="submit" class="btn btn-primary">Thêm</button>
-    </form>
-    <h5 class="mt-4">Tạo lịch thi đấu</h5>
-    <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post">
-        <button class="btn btn-success" type="submit">⚽ Tạo Lịch Thi Đấu</button>
-    </form>
+
+        <div class="section mt-4">
+            <h5 class="section-subtitle">➕ Thêm đội bóng</h5>
+            <form th:action="@{/tournaments/{id}/add-team(id=${tournament.id})}" method="post" th:object="${newTeam}">
+                <div class="input-group">
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Nhập tên đội" required>
+                    <button type="submit" class="btn btn-submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="section mt-5 text-center">
+            <h5 class="section-subtitle mb-3">🗓 Tạo lịch thi đấu</h5>
+            <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post">
+                <button class="btn btn-submit px-4" type="submit">⚽ Tạo lịch thi đấu</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+
+  -->
+  
+  <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết giải đấu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style_fragment.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_tournament_detail.css}" />
+</head>
+<body>
+<div class="container mt-4">
+    <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
+
+    <div class="detail-wrapper mt-4">
+        <!-- Danh sách đội -->
+        <div class="section">
+            <h2 class="section-title">Danh sách đội tham gia</h2>
+            <table class="table table-hover align-middle team-table">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 60px;">STT</th>
+                        <th>Tên đội</th>
+                        <th style="width: 150px; text-align: center;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="team, stat : ${teams}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td th:text="${team.name}" class="team-name-cell"></td>
+                        <td class="text-center">
+                            <form th:action="@{/tournaments/{tid}/remove-team/{teamId}(tid=${tournament.id}, teamId=${team.id})}" method="post" onsubmit="return confirm('Bạn có chắc muốn xoá đội này?');">
+			                    <button type="submit" class="btn btn-sm btn-danger">Xoá</button>
+			                </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Thêm đội -->
+        <div class="section mt-4">
+            <h5 class="section-subtitle">➕ Thêm đội bóng</h5>
+            <form th:action="@{/tournaments/{id}/add-team(id=${tournament.id})}" method="post" th:object="${newTeam}">
+                <div class="input-group">
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Nhập tên đội" required>
+                    <button type="submit" class="btn btn-submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tạo lịch thi đấu -->
+        <div class="section mt-5 text-center">
+            <h5 class="section-subtitle mb-3">🗓 Tạo lịch thi đấu</h5>
+            <form th:action="@{'/tournaments/' + ${tournament.id} + '/generate-schedule'}" method="post">
+                <button class="btn btn-submit px-4" type="submit">⚽ Tạo lịch thi đấu</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+  

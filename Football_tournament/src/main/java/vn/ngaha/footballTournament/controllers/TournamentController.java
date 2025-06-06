@@ -20,6 +20,7 @@ import vn.ngaha.footballTournament.repositories.StandingRepository;
 import vn.ngaha.footballTournament.repositories.TeamRepository;
 import vn.ngaha.footballTournament.repositories.TournamentRepository;
 import vn.ngaha.footballTournament.services.MatchService;
+import vn.ngaha.footballTournament.services.TournamentService;
 import vn.ngaha.footballTournament.services.impl.StandingServiceImpl;
 
 @Controller
@@ -29,6 +30,8 @@ public class TournamentController {
 
     @Autowired
     private TournamentRepository tournamentRepository;
+    @Autowired
+    private TournamentService tournamentService;
 
     @Autowired
     private MatchRepository matchesRepository;
@@ -108,6 +111,12 @@ public class TournamentController {
 
 	    return "tournament-standing";
 	}
-
+	
+	@PostMapping("/tournaments/{tournamentId}/remove-team/{teamId}")
+	public String removeTeamFromTournament(@PathVariable Long tournamentId, @PathVariable Long teamId) {
+	    System.out.println("Xoá team " + teamId + " khỏi giải " + tournamentId);
+	    tournamentService.removeTeam(tournamentId, teamId);
+	    return "redirect:/tournaments/" + tournamentId;
+	}
 
 }
