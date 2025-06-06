@@ -65,16 +65,16 @@
         <!-- Fragment header -->
         <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
 
-        <h3 th:text="'Lịch thi đấu - ' + ${tournament.name}"></h3>
+        <h3 th:text="'Lịch thi đấu'"></h3>
 
         <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Ngày</th>
-                    <th>Đội 1</th>
-                    <th>Đội 2</th>
-                    <th>Địa điểm</th>
-                    <th>Thao tác</th>
+                <tr class="table-success">
+                    <th class="text-success">Ngày</th>
+                    <th class="text-success">Đội 1</th>
+                    <th class="text-success">Đội 2</th>
+                    <th class="text-success">Địa điểm</th>
+                    <th class="text-success">Thao tác</th>
                 </tr>
             </thead>
             <tbody>

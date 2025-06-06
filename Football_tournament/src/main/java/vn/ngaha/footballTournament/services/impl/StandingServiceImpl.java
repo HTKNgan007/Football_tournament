@@ -96,11 +96,20 @@ public class StandingServiceImpl implements StandingService{
         List<Standings> standings = new ArrayList<>(standingsMap.values());
 
         // Sắp xếp bảng xếp hạng
+//        standings.sort(
+//            Comparator.comparingInt(Standings::getPoints).reversed()
+//                      .thenComparingInt(Standings::getGoalDifference).reversed()
+//                      .thenComparingInt(Standings::getGoalsFor).reversed()
+//        );
         standings.sort(
-            Comparator.comparingInt(Standings::getPoints).reversed()
-                      .thenComparingInt(Standings::getGoalDifference).reversed()
-                      .thenComparingInt(Standings::getGoalsFor).reversed()
-        );
+        	    Comparator.comparingInt(Standings::getPoints).reversed() // Điểm giảm dần
+        	              .thenComparing((s1, s2) -> Integer.compare(s2.getGoalDifference(), s1.getGoalDifference())) // Hiệu số giảm dần
+        	              .thenComparing((s1, s2) -> Integer.compare(s2.getGoalsFor(), s1.getGoalsFor())) // Bàn thắng giảm dần
+        	              .thenComparing(s -> s.getTeam().getName()) // Tên đội tăng dần
+        	);
+
+
+
 
         return standings;
     }

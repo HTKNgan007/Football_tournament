@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+    background-color: #f0f4f3;
+}
+
+.table th,
+.table td {
+    padding: 14px 20px;
+    font-size: 1rem;
+}
+
+.table th {
+    color: #006644;
+    font-weight: 700;
+}
+
+.table tbody tr:hover {
+    background-color: #f5fdfb;
+}
+
+.team-name-cell {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 500px;
+    font-weight: 500;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(0, 128, 87);
+    margin-bottom: 20px;
+}
+
