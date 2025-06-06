@@ -61,12 +61,7 @@ public class TournamentController {
 
         return "matches-list";
     }
-
-//    @PostMapping("/tournaments/{id}/delete")
-//    public String deleteTournament(@PathVariable Long id) {
-//        tournamentRepository.deleteById(id);
-//        return "redirect:/";
-//    }
+    
 	@PostMapping("/tournaments/{id}/delete")
 	public String deleteTournament(@PathVariable Long id) {
 	    Tournaments tournament = tournamentRepository.findById(id)
