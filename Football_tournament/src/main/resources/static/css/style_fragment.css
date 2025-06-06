@@ -23,11 +23,18 @@
     font-weight: bold;
     font-size: 28px;
 }
+.tournament-title {
+    max-width: 100%;
+    word-break: break-word;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
 .btn-custom {
     background-color: white;
     color: var(--main-green);
     border: 2px solid var(--main-green);
+    min-width: 120px;
     font-weight: 500;
     border-radius: 1rem;
     transition: all 0.3s ease;
@@ -36,6 +43,12 @@
 .btn-custom:hover {
     background-color: var(--main-green);
     color: white;
+}
+.tournament-banner {
+    background-color: #f8f9fa;
+    border-left: 6px solid rgb(0, 128, 87);
+    border-radius: 8px;
+    word-wrap: break-word;
 }
 
 @keyframes fadeIn {
