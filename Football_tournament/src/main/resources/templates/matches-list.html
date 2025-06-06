@@ -5,10 +5,11 @@
     <title>Lịch thi đấu - [[${tournament.name}]]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/css/style_fragment.css}" />
+    <link rel="stylesheet" th:href="@{/css/style_schedule.css}" />
 </head>
 <body>
-    <div class="container mt-4">
-        <!-- Fragment header -->
+    <!-- <div class="container mt-4">
+        Fragment header
         <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
 
         <h3 th:text="'Lịch thi đấu - ' + ${tournament.name}"></h3>
@@ -27,8 +28,8 @@
                     <form th:action="@{'/matches/' + ${match.id} + '/update'}" method="post">
                         <input type="hidden" name="matchId" th:value="${match.id}" />
                         <td>
-                            <!-- <input type="date" class="form-control" name="matchDate"
-       							th:value="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}" required /> -->
+                            <input type="date" class="form-control" name="matchDate"
+       							th:value="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}" required />
        							<input type="date"
 							       class="form-control"
 							       name="matchDate"
@@ -46,7 +47,6 @@
                         </td>
                         <td>
                             <button type="submit" class="btn btn-sm btn-success">💾 Lưu</button>
-                            <!-- <a th:href="@{'/matches/' + ${match.id} + '/result'}" class="btn btn-sm btn-primary">Nhập kết quả</a> -->
                             <a th:if="${match.result != null}"
 						       th:href="@{'/matches/' + ${match.id} + '/result'}"
 						       class="btn btn-sm btn-warning">✏️ Sửa kết quả</a>
@@ -55,6 +55,57 @@
 						       th:href="@{'/matches/' + ${match.id} + '/result'}"
 						       class="btn btn-sm btn-primary">📝 Nhập kết quả</a>
 
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    <div class="container mt-4">
+        <!-- Fragment header -->
+        <div th:replace="fragments/header :: tournamentHeader(${tournament})"></div>
+
+        <h3 th:text="'Lịch thi đấu - ' + ${tournament.name}"></h3>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Đội 1</th>
+                    <th>Đội 2</th>
+                    <th>Địa điểm</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="match : ${matches}">
+                    <form th:action="@{'/matches/' + ${match.id} + '/update'}" method="post">
+                        <input type="hidden" name="matchId" th:value="${match.id}" />
+                        <td>
+                            <input type="date"
+                                   class="form-control"
+                                   name="matchDate"
+                                   th:value="${#temporals.format(match.matchDate, 'yyyy-MM-dd')}"
+                                   th:min="${#temporals.format(tournament.startDate, 'yyyy-MM-dd')}"
+                                   th:max="${#temporals.format(tournament.endDate, 'yyyy-MM-dd')}"
+                                   required />
+                        </td>
+                        <td th:text="${match.team1.name}"></td>
+                        <td th:text="${match.team2.name}"></td>
+                        <td>
+                            <input type="text" class="form-control" name="location"
+                                   th:value="${match.location}" required />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-sm btn-success">💾 Lưu</button>
+
+                            <a th:if="${match.result != null}"
+                               th:href="@{'/matches/' + ${match.id} + '/result'}"
+                               class="btn btn-sm btn-warning">✏️ Sửa kết quả</a>
+
+                            <a th:if="${match.result == null}"
+                               th:href="@{'/matches/' + ${match.id} + '/result'}"
+                               class="btn btn-sm btn-primary">📝 Nhập kết quả</a>
                         </td>
                     </form>
                 </tr>

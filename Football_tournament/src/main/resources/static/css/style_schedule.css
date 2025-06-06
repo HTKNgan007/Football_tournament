@@ -1,0 +1,99 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Tiêu đề */
+h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(0, 128, 87);
+    margin-bottom: 24px;
+}
+
+/* Bảng lịch thi đấu */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+    background-color: #f0f4f3;
+}
+
+.table th,
+.table td {
+    padding: 12px 18px;
+    text-align: left;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.table th {
+    color: #006644;
+    font-weight: 700;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f5fdfb;
+}
+
+/* Input & button */
+input.form-control {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.btn {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 6px;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-success {
+    background-color: rgb(0, 128, 87);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #006644;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+}
+
+/* Để canh đều form trong td */
+form {
+    display: contents;
+}
