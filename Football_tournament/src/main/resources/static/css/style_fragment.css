@@ -1,0 +1,65 @@
+@charset "UTF-8";
+*{
+	text-decoration: none;		
+}
+/* Màu chủ đạo */
+:root {
+    --main-green: rgb(0, 128, 87);
+    --light-green: #4bdba2;
+    --text-light: #ffffff;
+}
+
+/* Banner của tournament */
+.tournament-banner {
+    background: linear-gradient(90deg, var(--main-green), var(--light-green));
+    border-radius: 1rem;
+    padding: 20px;
+    color: var(--text-light);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.8s ease;
+}
+
+.tournament-banner h2 {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.btn-custom {
+    background-color: white;
+    color: var(--main-green);
+    border: 2px solid var(--main-green);
+    font-weight: 500;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: var(--main-green);
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Navbar */
+.navbar-green {
+    background: linear-gradient(to right, var(--main-green), #2cc08c);
+    color: var(--text-light);
+}
+
+.navbar-green .navbar-brand {
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+}
+
+.navbar-green .nav-link {
+    color: #d2fff1;
+    font-weight: 500;
+}
+
+.navbar-green .nav-link:hover {
+    color: white;
+}

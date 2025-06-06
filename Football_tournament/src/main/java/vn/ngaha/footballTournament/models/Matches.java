@@ -29,6 +29,9 @@ public class Matches {
     @OneToOne(mappedBy = "match", cascade = CascadeType.ALL)
     private MatchResults result;
 
+    public boolean isResultEntered() {
+        return result != null;
+    }
     
 	public Long getId() {
 		return id;
