@@ -7,9 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/style_fragment.css}" />
 </head>
 <body>
-<div th:replace="fragments/header-tournament :: header-tournament"></div>
-<div class="container mt-5">
-    <h2>Thêm mới giải đấu</h2>
+<div class="container mt-4">
+	<div th:replace="fragments/header-tournament :: header-tournament"></div>
+    <h2 class="mt-4">Thêm mới giải đấu</h2>
     <form th:action="@{/tournaments/save}" th:object="${tournament}" method="post">
         <div class="mb-3">
             <label class="form-label">Tên giải</label>

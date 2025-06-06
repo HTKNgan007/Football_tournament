@@ -47,6 +47,8 @@
 .navbar-green {
     background: linear-gradient(to right, var(--main-green), #2cc08c);
     color: var(--text-light);
+    border-radius: 1rem;
+    padding: 20px;
 }
 
 .navbar-green .navbar-brand {
