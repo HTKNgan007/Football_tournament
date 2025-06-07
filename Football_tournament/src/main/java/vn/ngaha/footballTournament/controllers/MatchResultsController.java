@@ -45,20 +45,6 @@ public class MatchResultsController {
         matchResultsService.saveResult(result);
         return "redirect:/tournaments/" + match.getTournament().getId() + "/matches";
     }
-    
-//    @PostMapping("/matches/{id}/update")
-//    public String updateMatch(@PathVariable Long id,
-//                              @RequestParam("matchDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate matchDate,
-//                              @RequestParam("location") String location) {
-//        Matches match = matchesRepository.findById(id)
-//            .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy trận đấu"));
-//
-//        match.setMatchDate(matchDate);
-//        match.setLocation(location);
-//        matchesRepository.save(match);
-//
-//        return "redirect:/tournaments/" + match.getTournament().getId() + "/matches";
-//    }
 
     @PostMapping("/matches/{id}/update")
     public String updateMatch(@PathVariable Long id,

@@ -13,6 +13,4 @@ import vn.ngaha.footballTournament.models.Tournaments;
 public interface MatchRepository extends JpaRepository<Matches, Long>{
 	List<Matches> findByTournament(Tournaments tournament);
 	List<Matches> findByTeam1OrTeam2(Teams team1, Teams team2);
-
-
 }

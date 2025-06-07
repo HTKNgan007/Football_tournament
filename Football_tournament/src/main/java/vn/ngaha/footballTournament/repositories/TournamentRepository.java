@@ -11,6 +11,5 @@ import vn.ngaha.footballTournament.models.Tournaments;
 public interface TournamentRepository extends JpaRepository<Tournaments, Long>{
 
 	List<Tournaments> findByNameContainingIgnoreCase(String keyword);
-
-
+	
 }

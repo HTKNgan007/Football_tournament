@@ -40,7 +40,6 @@ public class TournamentServiceImpl implements TournamentService{
     
     @Transactional
     public void removeTeam(Long tournamentId, Long teamId) {
-        Tournaments tournament = tournamentRepository.findById(tournamentId).orElseThrow();
         Teams team = teamRepository.findById(teamId).orElseThrow();
 
         // 1. Xoá các trận đấu liên quan đến đội này
