@@ -87,7 +87,7 @@ public class TournamentController {
     tournamentRepository.delete(tournament);
 
     return "redirect:/";
-}
+	}
 	
 	@GetMapping("/tournaments/{id}/results")
 	public String showResults(@PathVariable Long id, Model model) {
